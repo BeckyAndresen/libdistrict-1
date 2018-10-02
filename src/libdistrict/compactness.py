@@ -15,16 +15,17 @@ projection = osr.CoordinateTransformation(EPSG4326, EPSG3857)
 
 
 def polsby_popper(district):
+    """
+    :param district: an instance of District
+    :return: Polsby-popper score for a district.
+        Measures the indentation of a district.
+    """
 
     is_district(district)
     has_geometry(district)
 
     geometry = district.geometry
 
-
-    """
-    From PlanScore Compactness/__init__.py
-    """
     projected = geometry.Clone()
     projected.Transform(projection)
     boundary = projected.GetBoundary()
@@ -36,23 +37,21 @@ def polsby_popper(district):
     else:
         length = boundary.Length()
 
-    """
-    """
-
     return 4 * math.pi * (geom_area / (length ** 2))
 
 
 def schwartzberg(district):
+    """
+    :param district: an instance of District
+    :return: Schwartzberg score for a district.
+        Measures the indentation of a district.
+    """
 
     is_district(district)
     has_geometry(district)
 
     geometry = district.geometry
 
-
-    """
-    From PlanScore Compactness/__init__.py
-    """
     projected = geometry.Clone()
     projected.Transform(projection)
     boundary = projected.GetBoundary()
@@ -64,9 +63,6 @@ def schwartzberg(district):
     else:
         perimeter = boundary.Length()
 
-    """
-    """
-
     radius = math.sqrt(area/math.pi)
     circumference = 2*math.pi*radius
     schwartzberg_score = 1/(perimeter/circumference)
@@ -75,6 +71,11 @@ def schwartzberg(district):
 
 
 def convex_hull_ratio(district):
+    """
+    :param district: an instance of District.
+    :return: Convex hull ratio of a district.
+        Measures the dispersion of a district.
+    """
 
     is_district(district)
     has_geometry(district)
