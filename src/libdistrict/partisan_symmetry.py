@@ -1,5 +1,5 @@
 import statistics
-from libdistrict.district import District
+from .district import District
 
 
 def efficiency_gap(district_plan, party_a, party_b):
