@@ -1,5 +1,5 @@
 import math
-from libdistrict.district import District
+from .district import District
 from osgeo import ogr, osr
 
 """
